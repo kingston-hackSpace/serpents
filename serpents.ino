@@ -67,10 +67,10 @@ void setup()
   egg_x = int(random(7));
   egg_y = int(random(7));
 
-  pinMode(7,INPUT); 
-  pinMode(8,INPUT); 
-  pinMode(9,INPUT); 
-  pinMode(10,INPUT);  
+  pinMode(6,INPUT); 
+  pinMode(5,INPUT); 
+  pinMode(4,INPUT); 
+  pinMode(3,INPUT);  
 }
 
 void loop(){
