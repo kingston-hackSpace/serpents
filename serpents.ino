@@ -57,15 +57,20 @@ int ball_y = 5;
 int egg_x = 6;
 int egg_y = 6;
 
+long randNumber;
+
 void setup()
 {
+  randomSeed(analogRead(0));
   // the zero refers to the MAX7219 number, it is zero for 1 chip
   lc.shutdown(0,false);// turn off power saving, enables display
   lc.setIntensity(0,15);// sets brightness (0~15 possible values)
   lc.clearDisplay(0);// clear screen
 
-  egg_x = int(random(7));
-  egg_y = int(random(7));
+  randNumber = random(5);
+  egg_x = int(randNumber);
+  randNumber = random(5);
+  egg_y = int(randNumber);
 
   pinMode(6,INPUT); 
   pinMode(5,INPUT); 
@@ -74,17 +79,26 @@ void setup()
 }
 
 void loop(){
+  readeggstate();
   readinput();
   readstate(); 
   render_screen();
+  delay(100);
   }
 
  void readinput(){
-  if(digitalRead(7)==true){state = 0;}
-  else if (digitalRead(8)==true){state = 1;}
-  else if (digitalRead(9)==true){state = 2;}
-  else if (digitalRead(10)==true){state = 3;}
+  if(digitalRead(3)==true){state = 0;}
+  else if (digitalRead(4)==true){state = 1;}
+  else if (digitalRead(5)==true){state = 2;}
+  else if (digitalRead(6)==true){state = 3;}
   }
+
+void readeggstate(){
+  if (egg_x==ball_x && egg_y==ball_y){
+      respawn_egg();
+      tail_length+=1;
+  }
+}
 
 void readstate(){
     if (state == 0){move_down();}
@@ -186,11 +200,15 @@ for (int i=0; i<63; i++){
     previous_x[i]=0;
     previous_y[i]=0;
 }
-    egg_x = int(random(7));
-    egg_y = int(random(7));;
+    randNumber = random(7);
+    egg_x = int(randNumber);
+    randNumber = random(7);
+    egg_y = int(randNumber);
     tail_length=0;
-    ball_x=int(random(7));
-    ball_y=int(random(7));
+    randNumber = random(7);
+    ball_x=int(randNumber);
+    randNumber = random(7);
+    ball_y=int(randNumber);
 }
   
 void respawn_egg(){
@@ -199,8 +217,10 @@ for (int i=0; i<tail_length+1; i++){
       respawn_egg();
       }
       else{      
-      egg_x = int(random(7));
-      egg_y = int(random(7));
+      randNumber = random(8);
+      egg_x = int(randNumber);
+      randNumber = random(8);
+      egg_y = int(randNumber);
       }
    }
 }
